@@ -16,9 +16,13 @@ class _BmiPageState extends State<BmiPage> {
   double result = 0;
   String detail = '';
 
+  double goodwidth = 100;
+  double badwidth = 100;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 199, 205, 165),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -43,13 +47,16 @@ class _BmiPageState extends State<BmiPage> {
                     child: TextField(
                       controller: weightController,
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 22, color: Colors.deepOrange),
+                      style: TextStyle(
+                          fontSize: 22,
+                          color: Colors.deepOrange,
+                          fontWeight: FontWeight.bold),
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Weight(KG)',
                         hintStyle: TextStyle(
-                          color: Colors.grey.withOpacity(0.5),
+                          color: Colors.grey.withOpacity(0.7),
                         ),
                       ),
                     ),
@@ -61,19 +68,21 @@ class _BmiPageState extends State<BmiPage> {
                       controller: hieghtController,
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 22, color: Colors.deepOrange),
+                      style: TextStyle(
+                          fontSize: 22,
+                          color: Colors.deepOrange,
+                          fontWeight: FontWeight.bold),
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'hieght(cm)',
                         hintStyle: TextStyle(
-                          color: Colors.grey.withOpacity(0.5),
+                          color: Colors.grey.withOpacity(0.7),
                         ),
                       ),
                     ),
                   ),
                 ],
               ),
-
               SizedBox(height: 40),
               InkWell(
                 onTap: () {
@@ -82,26 +91,45 @@ class _BmiPageState extends State<BmiPage> {
                   setState(() {
                     result = weight / ((hieght / 100) * (hieght / 100));
                     if (result > 25) {
+                      goodwidth = 300;
+                      badwidth = 100;
                       detail = ' You are overweight!!';
                     } else if (result < 18.5) {
-                      detail = 'You are underweight';
+                      goodwidth = 100;
+                      badwidth = 300;
+                      detail = 'You are underweight!!';
                     } else {
-                      detail = ' Your weight is normal';
+                      goodwidth = 200;
+                      badwidth = 200;
+                      detail = ' Your weight is normal!!';
                     }
                   });
                 },
                 child: Text(
                   'Calculat BMI !!',
-                  style: TextStyle(fontSize: 30, color: Colors.red),
+                  style: TextStyle(fontSize: 30, color: Colors.deepOrange),
                 ),
               ),
+              SizedBox(height: 60),
+              Text(
+                '${result.toStringAsFixed(2)}',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 40),
+              ),
               SizedBox(height: 30),
-              Text('${result.toStringAsFixed(2)}'),
-              SizedBox(height: 20),
-              Text('$detail')
-              //LeftShape(width: 400),
-              //SizedBox(height: 5),
-              //RightShape(wight: 100),
+              Text(
+                '$detail',
+                style: TextStyle(
+                    color: Color.fromARGB(255, 5, 52, 91),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25),
+              ),
+              SizedBox(height: 30),
+              RightShape(wight: badwidth),
+              SizedBox(height: 5),
+              LeftShape(width: goodwidth),
             ],
           ),
         ),
