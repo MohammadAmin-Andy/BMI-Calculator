@@ -1,7 +1,18 @@
+import 'package:bmi_calculator/page.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
+
+  void navigatToPages(BuildContext context, Widget page) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext context) {
+          return page;
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 50),
               ClipRRect(
                 child: Image(
                   image: AssetImage('images/BMI.png'),
@@ -50,7 +61,12 @@ class HomeScreen extends StatelessWidget {
                     ),
                     //shadowColor: Colors.black,elevation: 2
                     minimumSize: Size(130, 40)),
-                onPressed: () {},
+                onPressed: () {
+                  navigatToPages(
+                    context,
+                    BmiPage(),
+                  );
+                },
                 child: Text("Let's go"),
               ),
             ],
